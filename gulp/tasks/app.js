@@ -1,11 +1,11 @@
-var gulp = require('gulp');
-var NwBuilder = require('nw-builder');
+var gulp        = require('gulp');
+var NwBuilder   = require('nw-builder');
 
-var util = require('gulp-util');
+var util        = require('gulp-util');
 
 gulp.task('buildApp', function () {
     var nw = new NwBuilder({
-        version: '0.14.7',
+        version: '0.14.7', //兼容xp系统
         files: './build/**',
         winIco: "./icons/icon.ico",
         macIcns: './icons/icon.icns',

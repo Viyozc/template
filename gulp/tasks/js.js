@@ -10,35 +10,31 @@ var plumber = require('gulp-plumber');
 var jsConfig = require('../config').js;
 // 方法一
 /* es6ToEs5 */
-// npm install gulp-browserify babelify gulp --save-dev
-// var browserify = require('gulp-browserify');
-// gulp.task('es6ToEs5', function() {
-//     return gulp.src(jsConfig.es6ToEs5.src)
-//         .pipe(plumber())
-//         .pipe(browserify({
-//             transform: ["babelify"]
-//         }))
-//         .pipe(gulp.dest(jsConfig.es6ToEs5.dest));
-// });
+    //npm install gulp-browserify babelify gulp --save-dev
+    var browserify = require('gulp-browserify');
+    gulp.task('es6ToEs5', function() {
+        return gulp.src(jsConfig.es6ToEs5.src)
+            .pipe(plumber())
+            .pipe(browserify({
+                transform: ["babelify"]
+            }))
+            .pipe(gulp.dest(jsConfig.es6ToEs5.dest));
+    });
 
-gulp.task('copyOthers', function () {
+gulp.task('copy', function () {
    return gulp.src(jsConfig.copyOthers.src)
        .pipe(gulp.dest(jsConfig.copyOthers.dest));
-});
-gulp.task('copyOthersBuild', function () {
-    return gulp.src(jsConfig.copyOthersBuild.src)
-        .pipe(gulp.dest(jsConfig.copyOthersBuild.dest));
 });
 
 var babel  = require("gulp-babel");
 /* _es6 */
-gulp.task('es6ToEs5',['copyOthers'], function() {
-    return gulp.src(jsConfig.es6ToEs5.src)
+gulp.task('babel',['copy'], function() {
+    return gulp.src(jsConfig.babel.src)
         .pipe(plumber())
         .pipe(babel({
             presets: ['es2015']
         }))
-        .pipe(gulp.dest(jsConfig.es6ToEs5.dest));
+        .pipe(gulp.dest(jsConfig.babel.dest));
 });
 
 gulp.task('nodeModules', function () {
@@ -53,10 +49,10 @@ gulp.task('nodeModules', function () {
 var stripDebug = require('gulp-strip-debug');
 var uglify = require('gulp-uglify');
 gulp.task('jsUglify', ['es6ToEs5', 'nodeModules', 'copyOthersBuild'], function () {
-// 1. 找到文件
+    // 1. 找到文件
     gulp.src(jsConfig.uglify.src)
         .pipe(plumber())
-    //1.1 删除console.log
+        //1.1 删除console.log
         .pipe(stripDebug())
         // 2. 压缩文件
         .pipe(uglify())
@@ -69,10 +65,10 @@ gulp.task('nodeModulesUglify', function () {
 // 1. 找到文件
     gulp.src(jsConfig.nodeModulesUglify.src)
         .pipe(plumber())
-    //1.1 删除console.log
+        //1.1 删除console.log
         .pipe(stripDebug())
         // 2. 压缩文件
-        // .pipe(uglify())
+        .pipe(uglify())
         // 3. 另存压缩后的文件
         .pipe(gulp.dest(jsConfig.nodeModulesUglify.dest));
 });
