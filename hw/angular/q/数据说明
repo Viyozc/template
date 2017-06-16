@@ -1,0 +1,19 @@
+/**
+ * Created by Administrator on 2017/5/4.
+ */
+var data = {
+    name: "前段笔试题", //问卷的标题
+    introduce: "布姆电竞主要业务包括布姆视频，布姆电竞学院，教学内容覆盖英雄联盟，守望先锋，王者荣耀等当下热门的电竞游戏。", //问卷的介绍
+    questions: [{//问题列表
+        type: 'custom',//问题类型text：简答题，MultipleSelection：多选题，singleSelection：单选题，custom：定制类型，当类型为custom时，hasAnswers生效，hasAnswers表示当前问题的answers中的数据是答案还是问题，例如hasAnswers为false，则answers中的数据为问题，需要进一步处理
+        question: '  null和undefined的区别?',//问题名字
+        hasAnswers: false,
+        answers: [{type: 'text', question: " 常用那几种浏览器测试？有哪些内核(Layout Engine)?"}, {
+            type: 'MultipleSelection',
+            question: '  null和undefined的区别?',
+            answers: [{answer: '变量被声明了，但没有赋值时，就等于undefined。'}, {answer: '调用函数时，应该提供的参数没有提供，该参数等于undefined。'}, {answer: ' 作为函数的参数，表示该函数的参数不是对象。'}, {answer: '创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。'}]
+        }]
+    }]
+};
+
+！！！！！！实现custom嵌套custom满分
