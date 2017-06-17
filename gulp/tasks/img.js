@@ -38,3 +38,19 @@ gulp.task('img', function () {
         })))
         .pipe(gulp.dest(imgConfig.dest));
 });
+gulp.task('mini',function () {
+    gulp.src('src/*.jpg')
+        .pipe(plumber({errorHandler:function (err) {
+            console.error('html Error!', err.message);
+        }}))
+        .pipe(cache(imagemin({
+            progressive: false, //类型：Boolean 默认：false 无损压缩jpg图片
+            svgoPlugins: [{removeViewBox: false}],//不要移除svg的viewbox属性
+            use: [pngquant(),
+                imageminJpegtran({progressive: false}),
+                imageminGifsicle({interlaced: true}),
+                imageminOptipng({optimizationLevel:3}),
+                imageminSvgo()] //使用pngquant深度压缩png图片的imagemin插件
+        })))
+        .pipe(gulp.dest('dest/'));
+})
