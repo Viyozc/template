@@ -4,12 +4,12 @@ var request = require('request');
 var app = express();
 app.use('/', function(req, res) {
     console.log(req.url)
-    let url = req.url;
-    if(req.url.indexOf('mock') > -1){
-      console.log('mock ing')
-    }else if(req.url.indexOf('3000') > -1){
-      url = 'http://o.dian.so:80/'+ url
-    }
+    // let url = req.url;
+    // if(req.url.indexOf('mock') > -1){
+    //   console.log('mock ing')
+    // }else if(req.url.indexOf('3000') > -1){
+    //   url = 'http://o.dian.so:80/'+ url
+    // }
     req.pipe(request(url)).pipe(res);
     console.log('xxxx')
 });
